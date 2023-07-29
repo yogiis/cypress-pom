@@ -1,0 +1,18 @@
+{
+  "name": "cypress-pom",
+  "version": "1.0.0",
+  "description": "Automation Testing using cypress",
+  "main": "index.js",
+  "scripts": {
+    "test": "cypress run"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yogiis/cypress-pom.git"
+  },
+  "author": "yogiis",
+  "license": "ISC",
+  "devDependencies": {
+    "cypress": "^12.17.2"
+  }
+}
