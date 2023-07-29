@@ -1,13 +1,15 @@
+import { dynamicSelector, selector } from "./element"
+
 export function navigate() {
     cy.visit('http://todomvc-app-for-testing.surge.sh/')
 }
 
 export function addTodo(todoText) {
-    cy.get('.new-todo').type(todoText + '{enter}')
+    cy.get(selector.NEW_TODO).type(todoText + '{enter}')
 }
 
 export function toggleTodo(todoIndex) {
-    cy.get(`.todo-list li:nth-child(${todoIndex + 1}) .toggle`).click()
+    cy.get(dynamicSelector.TODO_ITEM_LIST_TOGGLE(todoIndex)).click()
 }
 
 export function showOnlyCompletedTodos() {
@@ -27,21 +29,21 @@ export function clearCompleted() {
 }
 
 export function validateNumberOfTodosShown(expectedNumberOfTodos) {
-    cy.get('.todo-list li').should('have.length', expectedNumberOfTodos)
+    cy.get(selector.TODO_LIST).should('have.length', expectedNumberOfTodos)
 }
 
 export function validateTodoCompletedState(todoIndex, shouldBeCompleted) {
-    const l = cy.get(`.todo-list li:nth-child(${todoIndex + 1}) label`)
+    const l = cy.get(dynamicSelector.TODO_ITEM_LIST_LABEL(todoIndex))
 
     l.should(`${shouldBeCompleted ? '' : 'not.'}have.css`, 'text-decoration-line', 'line-through')
 }
 
 export function validateTodoText(todoIndex, expectedText) {
-    cy.get(`.todo-list li:nth-child(${todoIndex + 1}) label`).should('have.text', expectedText)
+    cy.get(dynamicSelector.TODO_ITEM_LIST_LABEL(todoIndex)).should('have.text', expectedText)
 }
 
 export function validateToggleState(todoIndex, shouldBeToggled) {
-    const label = cy.get(`.todo-list li:nth-child(${todoIndex + 1}) label`)
+    const label = cy.get(dynamicSelector.TODO_ITEM_LIST_LABEL(todoIndex))
 
     label.should(`${shouldBeToggled ? '' : 'not.'}be.checked`)
 }
